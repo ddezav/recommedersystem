@@ -13,8 +13,8 @@ class MovieLens:
 
     movieID_to_name = {}
     name_to_movieID = {}
-    ratingsPath = '../../data/ratings.csv'
-    moviesPath = '../../data/oas.csv'
+    ratingsPath = '../data/ratings.csv'
+    moviesPath = '../data/oas.csv'
     
     def loadMovieLensLatestSmall(self):
 
