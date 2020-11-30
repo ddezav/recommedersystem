@@ -34,16 +34,6 @@ evaluator = Evaluator(evaluationData, rankings)
 UserKNN = KNNBasic(sim_options = {'name': 'pearson_baseline', 'user_based': True,'shrinkage': 0})
 evaluator.AddAlgorithm(UserKNN, "User KNN")
 
-# Item-based KNN
-#ItemKNN = KNNBasic(sim_options = {'name': 'cosine', 'user_based': False})
-#evaluator.AddAlgorithm(ItemKNN, "Item KNN")
+recomendations = evaluator.globalRecommendation()
+evaluator.get_top_n(recomendations)
 
-# Just make random recommendations
-#Random = NormalPredictor()
-#evaluator.AddAlgorithm(Random, "Random")
-
-# Fight!
-evaluator.Evaluate(True)
-
-
-evaluator.SampleTopNRecs(ml)

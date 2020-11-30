@@ -77,7 +77,39 @@ class Evaluator:
             
             for ratings in recommendations[:10]:
                 print(ml.getMovieName(ratings[0]), ratings[1])
-                
+
+    def globalRecommendation(self):
+            
+        for algo in self.algorithms:
+            
+            trainSet = self.dataset.GetFullTrainSet()
+            algo.GetAlgorithm().fit(trainSet)
+            
+            testSet = self.dataset.GetFullAntiTestSet()
+            predictions = algo.GetAlgorithm().test(testSet)
+            
+            return predictions
+            
+    def get_top_n(self,predictions,n=10):
+        top_n = dict()
+        for uid, iid, true_r, est, _ in predictions:            
+            top_n[uid]=[(iid, est)]
+        
+        f = open("recommend.txt", "w")
+
+        # Then sort the predictions for each user and retrieve the k highest ones.
+        for uid, user_ratings in top_n.items():
+            user_ratings.sort(key=lambda x: x[1], reverse=True)
+            top_n[uid] = user_ratings[:n]
+            s=str(uid)+";"
+
+            for idoa,predrating in user_ratings[:n]:
+                s+=str(idoa)+','
+            s+="\n"
+            f.write(s)
+
+        f.close()    
+
 
             
             
